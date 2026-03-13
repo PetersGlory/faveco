@@ -8,7 +8,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'FavEco - Reliable Solar Solutions for Homes & Businesses',
-  description: 'Get 24/7 solar power with FavEco. Professional solar installations with battery backup, flexible payment plans, and expert support. Trusted by thousands in Africa.',
+  description: 'Get 24/7 solar power with FavEco. Professional solar installations with battery backup, flexible payment plans, and expert support. Trusted by thousands in Africa and world-wide.',
   generator: 'v0.app',
   icons: {
     icon: [
