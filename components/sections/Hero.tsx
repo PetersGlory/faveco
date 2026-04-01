@@ -9,12 +9,12 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight, Sun } from 'lucide-react';
+import { ArrowRight, ChevronRight, Zap } from 'lucide-react';
 import { useRef } from 'react';
 
 export default function Hero() {
   const plugin = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   );
 
   const heroImages = [
@@ -22,108 +22,301 @@ export default function Hero() {
     { src: '/hero-solar-2.jpg', alt: 'Commercial solar installation' },
   ];
 
+  const stats = [
+    { value: '5,000+', label: 'Installations', sub: 'Across Africa' },
+    { value: '25 Yr', label: 'Warranty', sub: 'Industry-leading coverage' },
+    { value: '24/7', label: 'Uptime', sub: 'Zero blackout guarantee' },
+  ];
+
   return (
-    <section className="relative pt-20 overflow-hidden">
-      {/* Carousel Slider */}
-      <div className="relative h-96 sm:h-[500px] lg:h-screen max-h-[600px] lg:max-h-screen mb-8 lg:mb-0">
-        <Carousel
-          plugins={[plugin.current]}
-          className="w-full h-full"
-          onMouseEnter={() => plugin.current.stop()}
-          onMouseLeave={() => plugin.current.play()}
-        >
-          <CarouselContent className="h-full">
-            {heroImages.map((image, index) => (
-              <CarouselItem key={index} className="h-full">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-4 bg-white/80 hover:bg-white text-foreground" />
-          <CarouselNext className="right-4 bg-white/80 hover:bg-white text-foreground" />
-        </Carousel>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-        {/* Overlay with content */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10 flex items-center justify-center">
-          <div className="relative max-w-4xl mx-auto text-center z-10 px-4 sm:px-6">
-            {/* Badge with animation */}
-            <div className="mb-8 flex justify-center animate-fade-in">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/25 backdrop-blur-md rounded-full border border-white/40 shadow-lg">
-                <Sun className="w-5 h-5 text-white animate-spin" style={{animationDuration: '20s'}} />
-                <span className="text-sm font-semibold text-white tracking-wide">Powering Africa's Clean Energy Future</span>
-              </div>
-            </div>
+        .hero-root {
+          font-family: 'DM Sans', sans-serif;
+        }
 
-            {/* Main Headline with enhanced styling */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight text-balance drop-shadow-lg">
-              24/7 Reliable Solar Power
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-orange-300 to-yellow-200 mt-2">For Homes & Businesses</span>
-            </h1>
+        .hero-headline {
+          font-family: 'Cormorant Garamond', serif;
+        }
 
-            {/* Subheading with better contrast */}
-            <p className="text-lg sm:text-xl text-white/95 mb-10 max-w-3xl mx-auto leading-relaxed text-balance drop-shadow-md">
-              Say goodbye to unreliable generators and expensive diesel. FavEco delivers dependable solar energy with intelligent battery storage, keeping your power on—day and night. Join 5,000+ satisfied customers across Africa.
-            </p>
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
 
-            {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="/shop" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  className="w-full bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-600 text-white font-bold px-8 py-6 text-lg shadow-xl flex items-center justify-center gap-2 group transform hover:scale-105 transition-all"
+        @keyframes slideRight {
+          from { opacity: 0; transform: translateX(-16px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes glowPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+          50%       { box-shadow: 0 0 24px 4px rgba(251, 191, 36, 0.18); }
+        }
+
+        @keyframes rotateSlow {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+
+        @keyframes lineSweep {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+
+        .animate-fadeup-1 { animation: fadeUp 0.8s ease forwards; animation-delay: 0.1s; opacity: 0; }
+        .animate-fadeup-2 { animation: fadeUp 0.8s ease forwards; animation-delay: 0.3s; opacity: 0; }
+        .animate-fadeup-3 { animation: fadeUp 0.8s ease forwards; animation-delay: 0.5s; opacity: 0; }
+        .animate-fadeup-4 { animation: fadeUp 0.8s ease forwards; animation-delay: 0.7s; opacity: 0; }
+        .animate-fadeup-5 { animation: fadeUp 0.8s ease forwards; animation-delay: 0.9s; opacity: 0; }
+
+        .badge-glow { animation: glowPulse 3s ease-in-out infinite; }
+        .icon-rotate { animation: rotateSlow 20s linear infinite; }
+
+        .line-sweep {
+          transform-origin: left;
+          animation: lineSweep 1s ease forwards;
+          animation-delay: 0.6s;
+          transform: scaleX(0);
+        }
+
+        .stat-card {
+          transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .stat-card:hover {
+          transform: translateY(-4px);
+        }
+
+        .cta-primary {
+          transition: all 0.25s ease;
+        }
+        .cta-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+        .cta-primary:hover .arrow-icon {
+          transform: translateX(4px);
+        }
+        .arrow-icon {
+          transition: transform 0.25s ease;
+        }
+
+        .cta-secondary {
+          transition: all 0.25s ease;
+        }
+        .cta-secondary:hover {
+          background: rgba(255,255,255,0.12);
+          transform: translateY(-2px);
+        }
+
+        .trust-pill {
+          transition: background 0.2s ease;
+        }
+        .trust-pill:hover {
+          background: rgba(255,255,255,0.15);
+        }
+
+        /* Carousel nav buttons */
+        .hero-carousel-prev,
+        .hero-carousel-next {
+          background: rgba(255,255,255,0.08) !important;
+          border: 1px solid rgba(255,255,255,0.2) !important;
+          backdrop-filter: blur(8px);
+          color: white !important;
+          transition: background 0.2s ease !important;
+          width: 44px !important;
+          height: 44px !important;
+        }
+        .hero-carousel-prev:hover,
+        .hero-carousel-next:hover {
+          background: rgba(255,255,255,0.18) !important;
+        }
+
+        /* Slide counter dots */
+        .slide-counter {
+          display: flex;
+          gap: 6px;
+          align-items: center;
+        }
+        .slide-dot {
+          width: 24px;
+          height: 2px;
+          background: rgba(255,255,255,0.35);
+          border-radius: 999px;
+          transition: all 0.3s ease;
+        }
+        .slide-dot.active {
+          width: 36px;
+          background: rgba(255,255,255,0.9);
+        }
+      `}</style>
+
+      <section className="hero-root relative pt-20 overflow-hidden bg-transparent">
+
+        {/* ── CAROUSEL ─────────────────────────────────────── */}
+        <div className="relative h-[520px] sm:h-[620px] lg:h-screen max-h-[780px]">
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full h-full"
+            onMouseEnter={() => plugin.current.stop()}
+            onMouseLeave={() => plugin.current.play()}
+          >
+            <CarouselContent className="h-full">
+              {heroImages.map((image, index) => (
+                <CarouselItem key={index} className="h-full">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover opacity-75"
+                    style={{ filter: 'saturate(0.85)' }}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <CarouselPrevious className="hero-carousel-prev left-6" />
+            <CarouselNext   className="hero-carousel-next right-6" />
+          </Carousel>
+
+          {/* Multi-layer overlay for depth */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.15) 100%)',
+            }}
+          />
+          {/* Side vignette */}
+          <div
+            className="absolute inset-0 pointer-events-none hidden lg:block"
+            style={{
+              background:
+                'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.3) 100%)',
+            }}
+          />
+
+          {/* ── HERO CONTENT ──────────────────────────────── */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full max-w-5xl mx-auto px-6 sm:px-10 text-center">
+
+              {/* Eyebrow badge */}
+              <div className="animate-fadeup-1 flex justify-center mb-7">
+                <span
+                  className="badge-glow inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest"
+                  style={{
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1px solid rgba(251,191,36,0.4)',
+                    color: 'rgba(253,224,120,0.95)',
+                    backdropFilter: 'blur(10px)',
+                  }}
                 >
-                  Shop Now
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </a>
-              <Button
-                size="lg"
-                className="w-full sm:w-auto border-2 border-white text-white hover:bg-white/20 font-bold px-8 py-6 text-lg backdrop-blur-sm transition-all"
+                  <Zap className="icon-rotate w-3.5 h-3.5 text-yellow-300" />
+                  Africa's Clean Energy Leader
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1
+                className="hero-headline animate-fadeup-2 text-white leading-[1.05] text-balance mb-2"
+                style={{ fontSize: 'clamp(2.6rem, 6vw, 5.5rem)', fontWeight: 600, letterSpacing: '-0.01em' }}
               >
-                View Our Solution
-              </Button>
-            </div>
+                24/7 Reliable Solar Power
+              </h1>
 
-            {/* Trust indicators */}
-            <div className="mt-10 flex flex-wrap justify-center items-center gap-6 text-white/80 text-sm">
-              <div className="flex items-center gap-2">
-                <span className="text-green-400 font-bold">✓</span> Expert Installation
+              {/* Accent line + sub-headline */}
+              <div className="animate-fadeup-3 flex justify-center mb-3">
+                <span
+                  className="line-sweep block h-px w-24 mt-1 mb-4"
+                  style={{ background: 'linear-gradient(to right, rgba(251,191,36,0.8), rgba(251,191,36,0.15))' }}
+                />
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-400 font-bold">✓</span> 25+ Year Warranty
+
+              <p
+                className="hero-headline animate-fadeup-3 text-balance"
+                style={{
+                  fontSize: 'clamp(1.6rem, 3.5vw, 2.8rem)',
+                  fontWeight: 400,
+                  color: 'rgba(253,224,120,0.85)',
+                  fontStyle: 'italic',
+                  letterSpacing: '0.01em',
+                  marginBottom: '1.5rem',
+                }}
+              >
+                For Homes &amp; Businesses
+              </p>
+
+              {/* Body copy */}
+              <p
+                className="animate-fadeup-3 mx-auto mb-10 text-balance"
+                style={{
+                  maxWidth: '680px',
+                  fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)',
+                  color: 'rgba(255,255,255,0.68)',
+                  lineHeight: 1.75,
+                  fontWeight: 300,
+                }}
+              >
+                Say goodbye to unreliable generators and costly diesel. FavEco delivers intelligent solar energy with battery storage that keeps the lights on — day and night. Join 5,000+ homes and businesses across Africa.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="animate-fadeup-4 flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
+                <a href="/shop" className="w-full sm:w-auto">
+                  <button
+                    className="cta-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-base text-black"
+                    style={{
+                      background: 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 60%, #D97706 100%)',
+                      boxShadow: '0 4px 20px rgba(251,191,36,0.3)',
+                    }}
+                  >
+                    Shop Now
+                    <ArrowRight className="arrow-icon w-4 h-4" />
+                  </button>
+                </a>
+
+                <button
+                  className="cta-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-base text-white"
+                  style={{
+                    background: 'rgba(255,255,255,0.07)',
+                    border: '1px solid rgba(255,255,255,0.22)',
+                    backdropFilter: 'blur(8px)',
+                  }}
+                >
+                  View Our Solutions
+                  <ChevronRight className="w-4 h-4 opacity-60" />
+                </button>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-400 font-bold">✓</span> Flexible Payment Plans
+
+              {/* Trust indicators */}
+              <div className="animate-fadeup-5 flex flex-wrap justify-center items-center gap-2 sm:gap-3">
+                {['Expert Installation', '25-Year Warranty', 'Flexible Payment Plans'].map((item) => (
+                  <span
+                    key={item}
+                    className="trust-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+                    style={{
+                      background: 'rgba(255,255,255,0.07)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      color: 'rgba(255,255,255,0.65)',
+                    }}
+                  >
+                    <span style={{ color: '#86EFAC' }}>✓</span>
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
+          </div>
+
+          {/* Bottom slide indicator */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 slide-counter z-10">
+            {heroImages.map((_, i) => (
+              <div key={i} className={`slide-dot ${i === 0 ? 'active' : ''}`} />
+            ))}
           </div>
         </div>
-      </div>
-
-      {/* Stats Section Below Carousel */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-8 text-center border-2 border-primary/20 hover:border-primary/50 shadow-md hover:shadow-lg transition-all">
-            <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">24/7</p>
-            <p className="text-sm font-semibold text-foreground/80">Reliable Power</p>
-            <p className="text-xs text-foreground/60 mt-2">Never experience blackouts</p>
-          </div>
-          <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl p-8 text-center border-2 border-accent/20 hover:border-accent/50 shadow-md hover:shadow-lg transition-all">
-            <p className="text-3xl sm:text-4xl font-bold text-accent mb-2">Smart</p>
-            <p className="text-sm font-semibold text-foreground/80">Battery Storage</p>
-            <p className="text-xs text-foreground/60 mt-2">Automatic energy management</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-8 text-center border-2 border-primary/20 hover:border-primary/50 shadow-md hover:shadow-lg transition-all">
-            <p className="text-3xl sm:text-4xl font-bold text-primary mb-2">25+</p>
-            <p className="text-sm font-semibold text-foreground/80">Years Warranty</p>
-            <p className="text-xs text-foreground/60 mt-2">Industry-leading coverage</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
