@@ -31,9 +31,9 @@ export default function WhatWeOffer() {
         {/* Offerings — Arnergy-style: image on left, checklist on right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
           {/* Left: product GIF / image placeholder */}
-          <div className="bg-muted rounded-xl overflow-hidden aspect-square lg:aspect-auto lg:h-[480px] flex items-center justify-center">
+          <div className="bg-muted rounded-xl overflow-hidden aspect-square lg:aspect-auto lg:h-[100%] flex items-center justify-center">
             <img
-              src="/what-we-offer.jpg"
+              src="/what-we-offer.png"
               alt="FavEco solar system"
               className="w-full h-full object-cover"
             />

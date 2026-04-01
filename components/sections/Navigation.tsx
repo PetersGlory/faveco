@@ -32,7 +32,7 @@ export default function Navigation() {
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-base">☀️</span>
           </div>
-          <span className={`font-bold text-lg hidden sm:inline transition-colors ${isScrolled ? 'text-foreground' : 'text-white'}`}>
+          <span className={`font-bold text-lg hidden sm:inline transition-colors ${isScrolled ? 'text-foreground' : 'text-foreground'}`}>
             FavEco
           </span>
         </a>
@@ -44,7 +44,7 @@ export default function Navigation() {
               key={link.label}
               href={link.href}
               className={`text-sm font-medium transition-colors hover:text-primary ${
-                isScrolled ? 'text-foreground/70' : 'text-white/80'
+                isScrolled ? 'text-foreground/70' : 'text-foreground/70'
               }`}
             >
               {link.label}

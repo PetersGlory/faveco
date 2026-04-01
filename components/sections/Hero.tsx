@@ -15,7 +15,7 @@ export default function Hero() {
   const plugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }));
 
   const heroImages = [
-    { src: '/hero-solar-1.jpg', alt: 'Solar panels on residential roof' },
+    { src: '/panel-hero.jpg', alt: 'Solar panels on residential roof' },
     { src: '/hero-solar-2.jpg', alt: 'Commercial solar installation' },
   ];
 
@@ -34,7 +34,7 @@ export default function Hero() {
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-full object-cover"
+                  className="inset-0 w-full h-full object-cover object-[50%_35%]"
                 />
               </CarouselItem>
             ))}
@@ -53,7 +53,7 @@ export default function Hero() {
               Africa's Clean Energy Leader
             </p>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-4 max-w-3xl">
-              Energy that pays for itself
+              24/7 Reliable Solar Power
             </h1>
             <p className="text-white/70 text-lg sm:text-xl mb-8 max-w-lg leading-relaxed">
               Reliable systems, lower bills, and long-term value for homes and businesses.

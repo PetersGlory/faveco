@@ -18,11 +18,11 @@ export default function DualCTASection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Stories card */}
           <div className="relative rounded-xl overflow-hidden min-h-[340px] flex flex-col justify-end group">
-            <img
+            {/* <img
               src="/stories-cover.jpg"
               alt="FavEco in the real world"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
+            /> */}
             {/* Fallback gradient bg */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-green-700/80" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -46,11 +46,11 @@ export default function DualCTASection() {
 
           {/* Calculator card */}
           <div className="relative rounded-xl overflow-hidden min-h-[340px] flex flex-col justify-end group">
-            <img
+            {/* <img
               src="/calculator-cover.jpg"
               alt="Solar calculator"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
+            /> */}
             {/* Fallback gradient bg */}
             <div className="absolute inset-0 bg-gradient-to-br from-foreground to-foreground/80" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
