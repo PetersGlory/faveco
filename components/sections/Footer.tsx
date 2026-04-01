@@ -96,7 +96,7 @@ export default function Footer() {
                 {links.map((link) => (
                   <li key={link}>
                     <a
-                      href="#"
+                      href={link.toLowerCase() || "#"}
                       className="text-white/60 hover:text-white transition-colors text-sm"
                     >
                       {link}
