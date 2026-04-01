@@ -1,44 +1,24 @@
 import { Leaf, TrendingUp, Users, Zap } from 'lucide-react';
 
 const metrics = [
-  {
-    icon: Users,
-    label: 'Satisfied Customers',
-    value: '5,000+',
-    description: 'Homes and businesses with 24/7 power'
-  },
-  {
-    icon: Zap,
-    label: 'System Uptime',
-    value: '99.5%',
-    description: 'Reliable 24/7 power availability'
-  },
-  {
-    icon: Leaf,
-    label: 'Cost Reduction',
-    value: '60-80%',
-    description: 'Average reduction in energy expenses'
-  },
-  {
-    icon: TrendingUp,
-    label: 'Payback Period',
-    value: '5-7 yrs',
-    description: 'Typical return on investment timeline'
-  }
+  { icon: Users,      value: '5,000+',  label: 'Satisfied Customers', description: 'Homes and businesses with 24/7 power' },
+  { icon: Zap,        value: '99.5%',   label: 'System Uptime',        description: 'Reliable 24/7 power availability' },
+  { icon: Leaf,       value: '60–80%',  label: 'Cost Reduction',       description: 'Average reduction in energy expenses' },
+  { icon: TrendingUp, value: '5–7 yrs', label: 'Payback Period',       description: 'Typical return on investment timeline' },
 ];
 
 export default function ImpactMetrics() {
   return (
-    <section id="impact" className="py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-muted/30 to-white">
+    <section id="impact" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-muted/30">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-18">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
-            Real Impact, Real Results
+
+        {/* Header */}
+        <div className="mb-14 lg:mb-20">
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Impact</p>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight max-w-xl">
+            Real impact, real results
           </h2>
-          <p className="text-xl text-foreground/70 max-w-3xl mx-auto text-balance leading-relaxed">
-            Join thousands of Africans transforming their energy independence. See the numbers behind FavEco's impact.
-          </p>
+          <div className="w-12 h-px bg-primary mt-5" />
         </div>
 
         {/* Metrics Grid */}
@@ -48,55 +28,45 @@ export default function ImpactMetrics() {
             return (
               <div
                 key={index}
-                className="p-8 bg-white rounded-xl border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 group text-center"
+                className="bg-white rounded-xl border border-border p-8 hover:border-primary/40 hover:shadow-lg transition-all duration-300 group"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:from-primary/20 group-hover:to-primary/10 transition-all mx-auto">
-                  <Icon className="w-8 h-8 text-primary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-all">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
-
-                <h3 className="text-4 lg:text-5xl font-bold text-primary mb-2 leading-tight">
-                  {metric.value}
-                </h3>
-
-                <p className="text-sm font-semibold text-foreground mb-2">
-                  {metric.label}
-                </p>
-
-                <p className="text-xs text-foreground/70">
-                  {metric.description}
-                </p>
+                <p className="text-3xl sm:text-4xl font-bold text-foreground mb-1">{metric.value}</p>
+                <p className="text-sm font-semibold text-foreground mb-1">{metric.label}</p>
+                <p className="text-xs text-foreground/55 leading-relaxed">{metric.description}</p>
               </div>
             );
           })}
         </div>
 
-        {/* Impact Call-out */}
-        <div className="bg-gradient-to-r from-primary via-green-500 to-primary text-white rounded-xl p-12 shadow-xl border border-primary/20">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-4">
-              <Leaf className="w-6 h-6" />
-              <p className="font-semibold text-sm uppercase tracking-wider">Energy Independence</p>
+        {/* Impact Call-out — Arnergy style: dark bg, left aligned text, white CTA buttons */}
+        <div className="bg-foreground text-white rounded-xl overflow-hidden">
+          <div className="p-10 sm:p-14 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Leaf className="w-5 h-5 text-primary" />
+                <p className="text-primary font-semibold text-sm uppercase tracking-wider">Energy Independence</p>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+                Your power in your hands
+              </h3>
+              <p className="text-white/65 leading-relaxed">
+                With 24/7 reliable solar power and intelligent battery storage, you eliminate dependency on expensive generators. Over 25+ years, a typical FavEco system pays for itself many times over while providing complete energy security.
+              </p>
             </div>
-            <h3 className="text-3xl sm:text-4xl font-bold mb-4">
-              Your Power in Your Hands
-            </h3>
-            <p className="text-lg text-white/95 mb-6 leading-relaxed">
-              Our customers experience immediate and long-term value. With 24/7 reliable solar power and intelligent battery storage, you eliminate dependency on expensive generators and unreliable grids. Over 25+ years, a typical FavEco system pays for itself many times over while providing complete energy security for your family or business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/calculator" className="inline-block">
-                <button className="bg-white text-primary px-6 py-3 rounded-lg font-bold hover:bg-white/90 transition-all">
-                  Calculate Your Savings
-                </button>
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-4 lg:items-start">
+              <a href="/calculator" className="inline-flex items-center justify-center gap-2 bg-white text-foreground font-bold px-6 py-3 rounded-lg hover:bg-white/90 transition-all">
+                Calculate Your Savings
               </a>
-              <a href="/shop" className="inline-block">
-                <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-bold hover:bg-white/10 transition-all">
-                  Explore Solutions
-                </button>
+              <a href="/shop" className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-all">
+                Explore Solutions
               </a>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

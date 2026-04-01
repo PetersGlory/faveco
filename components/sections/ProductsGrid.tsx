@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap } from 'lucide-react';
 
 interface Product {
@@ -61,22 +60,24 @@ export default function ProductsGrid() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-muted/20">
+    <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
 
-        {/* Section Header */}
-        <div className="text-center mb-14 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 mb-4">
-            <Zap className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Our Premium Range</span>
+        {/* Header */}
+        <div className="mb-12 lg:mb-16">
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Products</p>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight max-w-lg">
+              Solar systems for every need
+            </h2>
+            <a
+              href="/shop"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors shrink-0 group"
+            >
+              View all products
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
-            Solar Systems for Every Need
-          </h2>
-          <div className="w-12 h-px bg-primary mx-auto mb-5" />
-          <p className="text-base text-foreground/60 max-w-2xl mx-auto text-balance leading-relaxed">
-            From starter packages to enterprise-grade solutions — every system includes professional installation, remote monitoring, and long-term warranty coverage.
-          </p>
         </div>
 
         {/* Products Grid */}
@@ -84,10 +85,10 @@ export default function ProductsGrid() {
           {products.map((product) => (
             <div
               key={product.id}
-              className={`rounded-xl overflow-hidden flex flex-col transition-all duration-300 group ${
+              className={`rounded-xl overflow-hidden flex flex-col transition-all duration-300 group border ${
                 product.popular
-                  ? 'bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary shadow-xl hover:shadow-2xl'
-                  : 'bg-white border border-border shadow-md hover:shadow-xl hover:border-primary/40'
+                  ? 'border-primary shadow-lg'
+                  : 'border-border hover:border-primary/40 hover:shadow-lg'
               }`}
             >
               {/* Image */}
@@ -97,7 +98,6 @@ export default function ProductsGrid() {
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {product.popular && (
                   <span className="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
                     Most Popular
@@ -106,69 +106,55 @@ export default function ProductsGrid() {
               </div>
 
               {/* Content */}
-              <div className="p-5 flex flex-col flex-grow">
-                {/* Power tag */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit mb-3">
+              <div className="p-5 flex flex-col flex-grow bg-white">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/15 w-fit mb-3">
                   <Zap className="w-3 h-3 text-primary" />
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wide">{product.power}</span>
+                  <span className="text-xs font-semibold text-primary">{product.power}</span>
                 </div>
 
-                <h3 className="text-xl font-bold text-foreground mb-1">{product.name}</h3>
-                <p className="text-xs text-foreground/60 mb-4 leading-relaxed">{product.description}</p>
+                <h3 className="text-lg font-bold text-foreground mb-1">{product.name}</h3>
+                <p className="text-sm text-foreground/55 mb-4 leading-relaxed flex-grow">{product.description}</p>
 
-                {/* Features */}
-                <ul className="space-y-1.5 mb-4 flex-grow">
-                  {product.features.slice(0, 3).map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-foreground/70">
-                      <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                <ul className="space-y-1.5 mb-5">
+                  {product.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-xs text-foreground/65">
+                      <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
                       {feature}
                     </li>
                   ))}
                 </ul>
 
-                {/* Price + CTA */}
-                <div className="pt-4 border-t border-border/50">
-                  {product.price && (
-                    <p className="text-2xl font-bold text-primary mb-3">{product.price}</p>
-                  )}
-                  <a href={product.link}>
-                    <Button
-                      className={`w-full flex items-center justify-center gap-2 group/btn transition-all ${
-                        product.popular
-                          ? 'bg-primary hover:bg-primary/90 text-white font-bold'
-                          : 'bg-primary/10 text-primary hover:bg-primary hover:text-white font-semibold'
-                      }`}
-                    >
-                      View Details
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </a>
-                </div>
+                {product.price && (
+                  <p className="text-xl font-bold text-primary mb-4">{product.price}</p>
+                )}
+
+                <a
+                  href={product.link}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
+                >
+                  Learn more
+                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                </a>
               </div>
             </div>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 lg:mt-20 text-center">
-          <p className="text-base text-foreground/60 mb-8">
+        <div className="mt-16 text-center">
+          <p className="text-foreground/60 mb-6 text-sm">
             Not sure which system is right for you? Our solar experts are ready to guide you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/calculator">
-              <Button variant="outline" className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold px-8 py-6">
-                Calculate Your Savings
-              </Button>
+            <a href="/calculator" className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary/5 font-semibold px-8 py-3 rounded-lg transition-all">
+              Calculate Your Savings
             </a>
-            <a href="/shop">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-6 flex items-center gap-2 group">
-                Shop All Products
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+            <a href="/shop" className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-all group">
+              Shop All Products
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
         </div>
-
       </div>
     </section>
   );

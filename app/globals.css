@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  font-family: "Quicksand", sans-serif;
   --background: oklch(0.98 0.002 240);
   --foreground: oklch(0.2 0.05 240);
   --card: oklch(1 0 0);

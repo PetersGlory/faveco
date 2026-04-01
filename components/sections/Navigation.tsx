@@ -9,10 +9,7 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,76 +23,75 @@ export default function Navigation() {
   ];
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white shadow-md'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white shadow-sm border-b border-border' : 'bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">☀️</span>
+            <span className="text-white font-bold text-base">☀️</span>
           </div>
-          <span className="font-bold text-lg text-foreground hidden sm:inline">FavEco</span>
+          <span className={`font-bold text-lg hidden sm:inline transition-colors ${isScrolled ? 'text-foreground' : 'text-white'}`}>
+            FavEco
+          </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-foreground/70 hover:text-primary transition-colors text-sm font-medium"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isScrolled ? 'text-foreground/70' : 'text-white/80'
+              }`}
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* CTA Button - Desktop */}
+        {/* CTA */}
         <div className="hidden md:block">
           <a href="/shop">
-            <Button className="bg-primary hover:bg-primary/90 text-white">
+            <Button className="bg-primary hover:bg-primary/90 text-white font-semibold">
               Shop Now
             </Button>
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+          className={`md:hidden p-2 rounded-lg transition-colors ${isScrolled ? 'hover:bg-muted' : 'hover:bg-white/10'}`}
         >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6 text-foreground" />
-          ) : (
-            <Menu className="w-6 h-6 text-foreground" />
-          )}
+          {isMobileMenuOpen
+            ? <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+            : <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+          }
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-border">
-          <div className="px-4 py-4 space-y-3">
+          <div className="px-6 py-4 space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="block text-foreground/70 hover:text-primary transition-colors text-sm font-medium py-2"
+                className="block text-foreground/70 hover:text-primary text-sm font-medium py-2.5 border-b border-border/50 last:border-b-0 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <a href="/shop" className="block">
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                Shop Now
-              </Button>
-            </a>
+            <div className="pt-3">
+              <a href="/shop">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-white">Shop Now</Button>
+              </a>
+            </div>
           </div>
         </div>
       )}

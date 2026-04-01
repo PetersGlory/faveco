@@ -1,78 +1,90 @@
-import { Button } from '@/components/ui/button';
 import { ArrowRight, BookOpen, Calculator } from 'lucide-react';
 
 export default function DualCTASection() {
   return (
-    <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-muted/20">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
-            Ready to Go Solar?
+
+        {/* Header */}
+        <div className="mb-12 lg:mb-16">
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Get Started</p>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight max-w-lg">
+            Ready to go solar?
           </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto text-balance">
-            Explore real-world success stories or calculate your potential savings
-          </p>
+          <div className="w-12 h-px bg-primary mt-5" />
         </div>
 
-        {/* Dual CTA Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Stories Card */}
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/20 rounded-lg p-8 lg:p-10 hover:border-primary/50 transition-all duration-300 group">
-            <div className="w-14 h-14 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <BookOpen className="w-7 h-7 text-white" />
-            </div>
-
-            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-3">
-              Customer Stories
-            </h3>
-
-            <p className="text-foreground/70 mb-6 leading-relaxed">
-              Discover how families and businesses across Africa have transformed their energy future with FavEco. Read inspiring success stories and learn how much our customers save.
-            </p>
-
-            <a href="/stories" className="inline-block">
-              <Button className="bg-primary hover:bg-primary/90 text-white font-semibold flex items-center gap-2 group/btn">
-                Read Stories
+        {/* Arnergy-style: two large image cards side-by-side */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Stories card */}
+          <div className="relative rounded-xl overflow-hidden min-h-[340px] flex flex-col justify-end group">
+            <img
+              src="/stories-cover.jpg"
+              alt="FavEco in the real world"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Fallback gradient bg */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-green-700/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="relative z-10 p-8 sm:p-10">
+              <div className="w-12 h-12 bg-white/15 rounded-lg flex items-center justify-center mb-4">
+                <BookOpen className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">FavEco in the real world</h3>
+              <p className="text-white/70 text-sm mb-5 leading-relaxed max-w-xs">
+                Real stories, real impact — discover how families and businesses across Africa have transformed their energy future.
+              </p>
+              <a
+                href="/stories"
+                className="inline-flex items-center gap-2 bg-white text-foreground font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-white/90 transition-all group/btn"
+              >
+                Learn more
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </Button>
-            </a>
+              </a>
+            </div>
           </div>
 
-          {/* Calculator Card */}
-          <div className="bg-gradient-to-br from-accent/10 to-accent/5 border-2 border-accent/20 rounded-lg p-8 lg:p-10 hover:border-accent/50 transition-all duration-300 group">
-            <div className="w-14 h-14 bg-accent rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Calculator className="w-7 h-7 text-white" />
-            </div>
-
-            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-3">
-              Solar Savings Calculator
-            </h3>
-
-            <p className="text-foreground/70 mb-6 leading-relaxed">
-              See how much you can save on energy costs with a custom FavEco system. Get an instant estimate based on your current usage and location.
-            </p>
-
-            <a href="/calculator" className="inline-block">
-              <Button className="bg-accent hover:bg-accent/90 text-white font-semibold flex items-center gap-2 group/btn">
-                Calculate Savings
+          {/* Calculator card */}
+          <div className="relative rounded-xl overflow-hidden min-h-[340px] flex flex-col justify-end group">
+            <img
+              src="/calculator-cover.jpg"
+              alt="Solar calculator"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Fallback gradient bg */}
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground to-foreground/80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="relative z-10 p-8 sm:p-10">
+              <div className="w-12 h-12 bg-white/15 rounded-lg flex items-center justify-center mb-4">
+                <Calculator className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Solar calculator</h3>
+              <p className="text-white/70 text-sm mb-5 leading-relaxed max-w-xs">
+                Find the perfect solar setup for your needs — get an instant estimate based on your current usage and location.
+              </p>
+              <a
+                href="/calculator"
+                className="inline-flex items-center gap-2 bg-white text-foreground font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-white/90 transition-all group/btn"
+              >
+                Learn more
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </Button>
-            </a>
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 lg:mt-16 text-center">
-          <p className="text-foreground/70 mb-6">
-            Or start your journey to clean energy today
-          </p>
-          <a href="/shop">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold">
-              Explore Our Products
-            </Button>
+        <div className="mt-12 text-center">
+          <p className="text-foreground/55 mb-5 text-sm">Or start your journey to clean energy today</p>
+          <a
+            href="/shop"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3.5 rounded-lg transition-all group"
+          >
+            Explore Our Products
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
+
       </div>
     </section>
   );
