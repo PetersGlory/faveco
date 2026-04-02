@@ -67,8 +67,8 @@ export default function ProductsGrid() {
         <div className="mb-12 lg:mb-16">
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Products</p>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight max-w-lg">
-              Solar systems for every need
+            <h2 className="text-4xl sm:text-5xl font-bold text-capitalize text-foreground leading-tight ">
+              Solar Power For Every Need.
             </h2>
             <a
               href="/shop"

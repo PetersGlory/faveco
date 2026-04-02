@@ -14,7 +14,8 @@ export default function Footer() {
 
   const footerLinks = {
     'Products':  ['Residential', 'Commercial', 'Distributors', 'Shop'],
-    'Solutions': ['Payment Plans', 'Energy Monitoring', 'Support', 'Calculator'],
+    'Solutions': ['Energy Monitoring', 'Support', 'Calculator'],
+    // 'Solutions': ['Payment Plans', 'Energy Monitoring', 'Support', 'Calculator'],
     'Company':   ['About Us', 'Blog', 'Careers', 'Contact'],
     'Legal':     ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Compliance'],
   };
@@ -100,8 +101,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y border-white/8">
           {[
             { Icon: Phone,  label: 'Support Hotline',  value: '+234 (0) 700 SOLAR 1' },
-            { Icon: Mail,   label: 'Email Us',          value: 'info@FavEco.com' },
-            { Icon: MapPin, label: 'Office Location',   value: 'Ikoyi, Lagos, Nigeria' },
+            { Icon: Mail,   label: 'Email Us',          value: 'info@faveco.com' },
+            { Icon: MapPin, label: 'Office Location',   value: '12 Osho Street, Lagos, Nigeria' },
           ].map(({ Icon, label, value }) => (
             <div key={label} className="flex gap-3 items-start">
               <Icon className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />

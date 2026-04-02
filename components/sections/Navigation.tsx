@@ -18,7 +18,7 @@ export default function Navigation() {
     { label: 'Residential', href: '/residential' },
     { label: 'Commercial', href: '/commercial' },
     { label: 'Become a Distributor', href: '/distributor' },
-    { label: 'Payment Plans', href: '/payment-plans' },
+    // { label: 'Payment Plans', href: '/payment-plans' },
     { label: 'Shop', href: '/shop' },
   ];
 
