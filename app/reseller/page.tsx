@@ -6,80 +6,40 @@ import Footer from '@/components/sections/Footer';
 import { ArrowRight, CheckCircle, Zap, TrendingUp, Award, Users } from 'lucide-react';
 import Link from 'next/link';
 
-export default function DistributorPage() {
+export default function ResellerPage() {
   const tiers = [
     {
+      name: 'Silver',
+      description: 'Perfect for retail partners',
+      margin: '12-15%',
+      minOrder: '₦2M',
+      benefits: [
+        'Margin: 12-15% on orders',
+        'Access to product catalog',
+        'Basic marketing materials',
+        'Monthly training sessions',
+        'Email support',
+        'Co-branding rights',
+        'Demo unit access',
+      ],
+      recommended: false,
+    },
+    {
       name: 'Gold',
-      description: 'Perfect for growing distributors',
+      description: 'For established retailers',
       margin: '15-18%',
       minOrder: '₦5M',
       benefits: [
-        'Margin: 15-18% on bulk orders',
-        'Access to all product lines',
-        'Marketing support package',
-        'Quarterly training programs',
-        'Dedicated account manager',
-        'Territory protection',
-        'Co-branding opportunities',
-      ],
-      recommended: false,
-    },
-    {
-      name: 'Platinum',
-      description: 'For established large distributors',
-      margin: '18-22%',
-      minOrder: '₦15M',
-      benefits: [
-        'Margin: 18-22% on bulk orders',
-        'Exclusive regional territory',
-        'Comprehensive marketing support',
+        'Margin: 15-18% on orders',
         'Priority customer support',
-        'Dedicated B2B portal access',
-        'Monthly performance bonuses',
-        'Partner conference invitations',
-        'Co-investment opportunities',
+        'Comprehensive marketing toolkit',
+        'Weekly training programs',
+        'Dedicated support team',
+        'Co-investment in marketing',
+        'Quarterly business reviews',
+        'Exclusive product previews',
       ],
       recommended: true,
-    },
-    {
-      name: 'Diamond',
-      description: 'For premium wholesale partners',
-      margin: '20-25%',
-      minOrder: '₦30M+',
-      benefits: [
-        'Margin: 20-25% on bulk orders',
-        'Exclusive national distribution',
-        'Custom marketing campaigns',
-        'VIP customer support (24/7)',
-        'Advanced analytics dashboard',
-        'Quarterly business reviews',
-        'Strategic partnership planning',
-        'Revenue sharing opportunities',
-      ],
-      recommended: false,
-    },
-  ];
-
-  const requirements = [
-    {
-      icon: Award,
-      title: 'Business Registration',
-      description: 'Valid business license and tax ID',
-    },
-    {
-      icon: Users,
-      title: 'Sales Team',
-      description: 'Dedicated solar sales professionals',
-    },
-    {
-      icon: Zap,
-      title: 'Technical Support',
-      description: 'Qualified installation or support staff',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Market Presence',
-      description: 'Established customer base or territory',
     },
   ];
 
@@ -97,21 +57,21 @@ export default function DistributorPage() {
             className="space-y-6"
           >
             <div className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-sm font-bold text-primary">Distributor Program</span>
+              <span className="text-sm font-bold text-primary">Reseller Program</span>
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] text-balance">
               Become a FavEco
-              <span className="block text-primary">Master Distributor</span>
+              <span className="block text-primary">Reseller Partner</span>
             </h1>
             <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl">
-              Join Africa&apos;s fastest-growing solar platform. Get wholesale rates, exclusive territories, and comprehensive support to build a thriving distribution business.
+              Expand your retail portfolio with premium solar systems. Competitive margins, proven demand, and full training to help your business grow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
                 href="#tiers"
                 className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all group shadow-lg"
               >
-                View Partnership Tiers
+                View Reseller Tiers
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -125,7 +85,7 @@ export default function DistributorPage() {
         </div>
       </section>
 
-      {/* Why Partner Section */}
+      {/* Benefits Section */}
       <section className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -136,18 +96,18 @@ export default function DistributorPage() {
             className="space-y-16"
           >
             <div className="text-center space-y-4">
-              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Why Partner With FavEco</h2>
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Why Become a Reseller</h2>
               <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                Access industry-leading margins, exclusive support, and unlimited growth potential
+                Competitive margins, proven market demand, and comprehensive support
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { title: '15-25%', subtitle: 'Wholesale Margins', desc: 'Industry-leading margins on bulk orders' },
-                { title: 'Exclusive', subtitle: 'Territory Rights', desc: 'Protected regional distribution areas' },
-                { title: '24/7', subtitle: 'Support', desc: 'Dedicated account managers & tech support' },
-                { title: '100%', subtitle: 'Marketing Support', desc: 'Co-branded materials & campaigns' },
+                { title: '12-18%', subtitle: 'Margins', desc: 'Competitive margins on every sale' },
+                { title: 'Proven', subtitle: 'Market Demand', desc: 'High customer interest in solar' },
+                { title: 'Full', subtitle: 'Training', desc: 'Complete product knowledge & sales training' },
+                { title: 'Marketing', subtitle: 'Support', desc: 'Ready-made promotional materials' },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -167,7 +127,7 @@ export default function DistributorPage() {
         </div>
       </section>
 
-      {/* Partnership Tiers */}
+      {/* Reseller Tiers */}
       <section id="tiers" className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-background">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -178,13 +138,13 @@ export default function DistributorPage() {
             className="space-y-16"
           >
             <div className="text-center space-y-4">
-              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Partnership Tiers</h2>
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Reseller Tiers</h2>
               <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                Choose the tier that matches your business scale and growth ambitions
+                Start small and scale with us
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 gap-8">
               {tiers.map((tier, i) => (
                 <motion.div
                   key={i}
@@ -194,7 +154,7 @@ export default function DistributorPage() {
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col ${
                     tier.recommended
-                      ? 'border-primary shadow-2xl ring-2 ring-primary/20 md:scale-105'
+                      ? 'border-primary shadow-2xl ring-2 ring-primary/20 md:col-span-2 lg:col-span-1'
                       : 'border-border hover:border-primary/40 hover:shadow-lg'
                   }`}
                 >
@@ -249,47 +209,7 @@ export default function DistributorPage() {
         </div>
       </section>
 
-      {/* Requirements Section */}
-      <section className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-16"
-          >
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Partnership Requirements</h2>
-              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-                What we look for in our distribution partners
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {requirements.map((req, i) => {
-                const Icon = req.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="p-6 rounded-xl bg-primary/5 border border-primary/10 hover:border-primary/30 transition-colors text-center"
-                  >
-                    <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="text-lg font-bold text-foreground mb-2">{req.title}</h3>
-                    <p className="text-sm text-foreground/60">{req.description}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Application CTA */}
+      {/* CTA */}
       <section className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-gradient-to-r from-primary/10 to-accent/10">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <motion.div
@@ -298,9 +218,9 @@ export default function DistributorPage() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Ready to Scale Your Business?</h2>
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Ready to Add Solar to Your Portfolio?</h2>
             <p className="text-lg text-foreground/70 leading-relaxed">
-              Apply for the FavEco Distributor Program and join our partner network across Africa.
+              Join FavEco&apos;s network of retail partners selling premium solar solutions.
             </p>
           </motion.div>
 
@@ -308,7 +228,7 @@ export default function DistributorPage() {
             href="/contact"
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all shadow-lg group"
           >
-            Submit Application
+            Start Application
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
