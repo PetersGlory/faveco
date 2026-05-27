@@ -20,6 +20,7 @@ export default function Navigation() {
     { label: 'Reseller Program', href: '/reseller' },
     { label: 'Installer Network', href: '/installer' },
     { label: 'Calculator', href: '/calculator' },
+    { label: 'Trust & Testimonials', href: '/trust' },
   ];
 
   return (
