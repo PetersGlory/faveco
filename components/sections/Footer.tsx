@@ -117,7 +117,7 @@ export default function Footer() {
           {[
             { Icon: Phone,  label: 'Call / WhatsApp',  value: '+234 802 268 8291', href: 'https://wa.me/2348022688291' },
             { Icon: Mail,   label: 'Email Us',          value: 'request@favecopower.com', href: 'mailto:request@favecopower.com' },
-            { Icon: MapPin, label: 'Office Location',   value: 'Lagos, Nigeria' },
+            { Icon: MapPin, label: 'Office Location',   value: '12 Osho Street Opebi Ikeja' },
           ].map(({ Icon, label, value, href }) => {
             const content = (
               <div className="flex gap-3 items-start">

@@ -11,25 +11,18 @@ import { useState } from 'react';
 
 const offices = [
   {
-    city: 'Lagos (HQ)',
-    address: 'Lagos, Nigeria',
+    city: 'Lagos',
+    address: '12 Osho Street Opebi Ikeja',
     phone: '+234 802 268 8291',
     email: 'request@favecopower.com',
     hours: 'Mon – Fri: 8am – 6pm\nSat: 9am – 2pm',
   },
   {
     city: 'Abuja',
-    address: 'Abuja, Nigeria',
+    address: 'Haramani Plaza - suite F116, Sheltima Mungono Cresent plot 873, Utako, Abuja',
     phone: '+234 802 268 8291',
     email: 'request@favecopower.com',
     hours: 'Mon – Fri: 8am – 6pm\nSat: 9am – 1pm',
-  },
-  {
-    city: 'Port Harcourt',
-    address: 'Port Harcourt, Rivers, Nigeria',
-    phone: '+234 802 268 8291',
-    email: 'request@favecopower.com',
-    hours: 'Mon – Fri: 8am – 5pm',
   },
 ];
 
