@@ -125,6 +125,18 @@ const categoryColors: Record<string, string> = {
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [query, setQuery] = useState('');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim()) return;
+    const message = `*Newsletter Subscription*\n\n*Email:* ${newsletterEmail}`;
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Newsletter Subscription')}&body=${encodeURIComponent(`Email: ${newsletterEmail}`)}`;
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
+    setNewsletterEmail('');
+  };
 
   const filtered = posts.filter(p => {
     const matchCat = activeCategory === 'all' || p.category === activeCategory;
@@ -298,16 +310,19 @@ export default function BlogPage() {
           <p className="text-foreground/70 leading-relaxed mb-8">
             Get the latest solar tips, industry news, and FavEco updates delivered to your inbox — no spam, ever.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
               type="email"
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
               placeholder="Your email address"
               className="flex-1 h-12 px-4 rounded-xl border-2 border-border bg-white text-sm outline-none focus:border-primary transition-colors"
+              required
             />
-            <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 h-12 rounded-xl flex-shrink-0">
+            <Button type="submit" className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 h-12 rounded-xl flex-shrink-0">
               Subscribe
             </Button>
-          </div>
+          </form>
           <p className="text-xs text-foreground/40 mt-3">Join 4,200+ subscribers. Unsubscribe anytime.</p>
         </div>
       </section>

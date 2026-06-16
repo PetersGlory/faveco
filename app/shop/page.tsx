@@ -331,7 +331,17 @@ export default function ShopPage() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1800)); // simulate API call
+
+    const selectedProducts = products.filter(p => form.selectedProducts.includes(p.id)).map(p => p.name).join(', ');
+    const message = `*New Product Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Company:* ${form.company || 'N/A'}\n*Customer Type:* ${form.customerType}\n*State:* ${form.state}\n*Property Type:* ${form.propertyType}\n*Address:* ${form.address || 'N/A'}\n*Products:* ${selectedProducts}\n*Installation:* ${form.installationType}\n*Timeline:* ${form.timeline || 'Not specified'}\n*Monthly Bill:* ${form.monthlyBill || 'Not specified'}\n*Provider:* ${form.currentProvider || 'Not specified'}\n*Payment:* ${form.paymentPreference}\n*Heard From:* ${form.heardAbout || 'Not specified'}\n*Notes:* ${form.additionalInfo || 'None'}`;
+
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const productsList = products.filter(p => form.selectedProducts.includes(p.id)).map(p => `${p.name} (${p.power})`).join(', ');
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Product Request: ${form.firstName} ${form.lastName}`)}&body=${encodeURIComponent(`Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nCompany: ${form.company || 'N/A'}\nCustomer Type: ${form.customerType}\nState: ${form.state}\nProperty Type: ${form.propertyType}\nAddress: ${form.address || 'N/A'}\nProducts: ${productsList}\nInstallation: ${form.installationType}\nTimeline: ${form.timeline || 'Not specified'}\nMonthly Bill: ${form.monthlyBill || 'Not specified'}\nProvider: ${form.currentProvider || 'Not specified'}\nPayment: ${form.paymentPreference}\nHeard From: ${form.heardAbout || 'Not specified'}\nNotes: ${form.additionalInfo || 'None'}`)}`;
+
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
+
     setSubmitting(false);
     setSubmitted(true);
   };
@@ -347,10 +357,10 @@ export default function ShopPage() {
               <CheckCircle2 className="w-10 h-10 text-primary" />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-3">Request Received!</h1>
-            <p className="text-foreground/60 leading-relaxed mb-8">
-              Thank you, <strong>{form.firstName}</strong>. Our solar consultants will review your request and get back to you within <strong>24–48 hours</strong>.
+            <p className="text-foreground/60 leading-relaxed mb-6">
+              Thank you, <strong>{form.firstName}</strong>. Your solar request has been sent to our team via WhatsApp. We'll get back to you within <strong>24–48 hours</strong>.
             </p>
-            <div className="bg-muted/40 rounded-xl border border-border p-4 text-left mb-8 space-y-2">
+            <div className="bg-muted/40 rounded-xl border border-border p-4 text-left mb-6 space-y-2">
               <p className="text-xs font-semibold text-foreground/50 uppercase tracking-widest mb-3">Your Selected Products</p>
               {products.filter(p => form.selectedProducts.includes(p.id)).map(p => (
                 <div key={p.id} className="flex items-center gap-2">
@@ -360,13 +370,26 @@ export default function ShopPage() {
                 </div>
               ))}
             </div>
-            <Button
-              onClick={() => { setSubmitted(false); setForm(emptyForm); }}
-              variant="outline"
-              className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold"
-            >
-              Submit Another Request
-            </Button>
+            <p className="text-xs text-foreground/50 mb-6">
+              Or email us at{' '}
+              <a href="mailto:request@favecopower.com" className="text-primary font-semibold hover:underline">request@favecopower.com</a>
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                variant="default"
+                className="bg-primary hover:bg-primary/90 text-white font-semibold"
+                onClick={() => window.open('https://wa.me/2348022688291', '_blank')}
+              >
+                Chat on WhatsApp
+              </Button>
+              <Button
+                onClick={() => { setSubmitted(false); setForm(emptyForm); }}
+                variant="outline"
+                className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold"
+              >
+                Submit Another Request
+              </Button>
+            </div>
           </div>
         </section>
         <Footer />
@@ -430,7 +453,7 @@ export default function ShopPage() {
                 </div>
                 <div>
                   <FieldLabel label="Phone Number" required />
-                  <InputField icon={Phone} type="tel" placeholder="+234 800 000 0000" value={form.phone} onChange={set('phone')} error={errors.phone} />
+                  <InputField icon={Phone} type="tel" placeholder="0802 268 8291" value={form.phone} onChange={set('phone')} error={errors.phone} />
                 </div>
                 <div>
                   <FieldLabel label="Company / Organisation" />
@@ -660,8 +683,8 @@ export default function ShopPage() {
               </Button>
 
               <p className="text-center text-xs text-foreground/40 leading-relaxed">
-                Our team typically responds within 24–48 hours. For urgent enquiries call{' '}
-                <a href="tel:+2348000000000" className="text-primary font-semibold hover:underline">+234 800 000 0000</a>.
+                Our team typically responds within 24–48 hours. For urgent enquiries WhatsApp{' '}
+                <a href="https://wa.me/2348022688291" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">+234 802 268 8291</a>.
               </p>
             </div>
 

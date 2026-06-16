@@ -12,23 +12,23 @@ import { useState } from 'react';
 const offices = [
   {
     city: 'Lagos (HQ)',
-    address: '14 Adeola Odeku Street, Victoria Island, Lagos',
-    phone: '+234 801 234 5678',
-    email: 'lagos@faveco.ng',
+    address: 'Lagos, Nigeria',
+    phone: '+234 802 268 8291',
+    email: 'request@favecopower.com',
     hours: 'Mon – Fri: 8am – 6pm\nSat: 9am – 2pm',
   },
   {
     city: 'Abuja',
-    address: 'Plot 44 Gana Street, Maitama, Abuja',
-    phone: '+234 802 345 6789',
-    email: 'abuja@faveco.ng',
+    address: 'Abuja, Nigeria',
+    phone: '+234 802 268 8291',
+    email: 'request@favecopower.com',
     hours: 'Mon – Fri: 8am – 6pm\nSat: 9am – 1pm',
   },
   {
     city: 'Port Harcourt',
-    address: '7 Trans-Amadi Road, Port Harcourt, Rivers',
-    phone: '+234 803 456 7890',
-    email: 'ph@faveco.ng',
+    address: 'Port Harcourt, Rivers, Nigeria',
+    phone: '+234 802 268 8291',
+    email: 'request@favecopower.com',
     hours: 'Mon – Fri: 8am – 5pm',
   },
 ];
@@ -130,9 +130,17 @@ export default function ContactPage() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1500));
-    setSubmitting(false);
+
+    const message = `*New Contact Form Submission*\n\n*Name:* ${form.name}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Company:* ${form.company || 'N/A'}\n*Subject:* ${form.subject}\n*Message:* ${form.message}`;
+
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Contact Form: ${form.subject}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nCompany: ${form.company || 'N/A'}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`)}`;
+
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
+
     setSubmitted(true);
+    setSubmitting(false);
   };
 
   return (
@@ -161,22 +169,22 @@ export default function ContactPage() {
             </div>
             {/* Quick contact pills */}
             <div className="flex flex-wrap gap-3">
-              <a href="tel:+2348012345678" className="inline-flex items-center gap-2.5 px-4 py-3 bg-white border-2 border-border rounded-xl hover:border-primary/40 transition-all group">
+              <a href="https://wa.me/2348022688291" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-3 bg-white border-2 border-border rounded-xl hover:border-primary/40 transition-all group">
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs text-foreground/50 font-medium">Call us</p>
-                  <p className="text-sm font-bold text-foreground">+234 801 234 5678</p>
+                  <p className="text-xs text-foreground/50 font-medium">WhatsApp / Call</p>
+                  <p className="text-sm font-bold text-foreground">+234 802 268 8291</p>
                 </div>
               </a>
-              <a href="mailto:hello@faveco.ng" className="inline-flex items-center gap-2.5 px-4 py-3 bg-white border-2 border-border rounded-xl hover:border-primary/40 transition-all group">
+              <a href="mailto:request@favecopower.com" className="inline-flex items-center gap-2.5 px-4 py-3 bg-white border-2 border-border rounded-xl hover:border-primary/40 transition-all group">
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Mail className="w-4 h-4 text-primary" />
                 </div>
                 <div>
                   <p className="text-xs text-foreground/50 font-medium">Email us</p>
-                  <p className="text-sm font-bold text-foreground">hello@faveco.ng</p>
+                  <p className="text-sm font-bold text-foreground">request@favecopower.com</p>
                 </div>
               </a>
               <div className="inline-flex items-center gap-2.5 px-4 py-3 bg-white border-2 border-border rounded-xl">
@@ -216,16 +224,29 @@ export default function ContactPage() {
                     <CheckCircle2 className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2">Message Sent!</h3>
-                  <p className="text-foreground/60 mb-6 leading-relaxed max-w-sm mx-auto">
-                    Thanks, <strong>{form.name.split(' ')[0]}</strong>. We've received your message and will be in touch shortly.
+                  <p className="text-foreground/60 mb-4 leading-relaxed max-w-sm mx-auto">
+                    Thanks, <strong>{form.name.split(' ')[0]}</strong>. Your message has been sent to our team via WhatsApp.
                   </p>
-                  <Button
-                    variant="outline"
-                    className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold"
-                    onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', company: '', subject: '', message: '', consent: false }); }}
-                  >
-                    Send Another Message
-                  </Button>
+                  <p className="text-xs text-foreground/50 mb-6 leading-relaxed max-w-sm mx-auto">
+                    Alternatively, email us at{' '}
+                    <a href="mailto:request@favecopower.com" className="text-primary font-semibold hover:underline">request@favecopower.com</a>
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button
+                      variant="default"
+                      className="bg-primary hover:bg-primary/90 text-white font-semibold"
+                      onClick={() => window.open(`https://wa.me/2348022688291`, '_blank')}
+                    >
+                      Chat on WhatsApp
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold"
+                      onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', company: '', subject: '', message: '', consent: false }); }}
+                    >
+                      Send Another Message
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="p-6 space-y-5">
@@ -269,7 +290,7 @@ export default function ContactPage() {
                           type="tel"
                           value={form.phone}
                           onChange={set('phone')}
-                          placeholder="+234 800 000 0000"
+                          placeholder="0802 268 8291"
                           className="w-full h-12 pl-10 pr-4 rounded-xl border-2 border-border bg-white text-sm placeholder:text-foreground/40 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 hover:border-primary/50 transition-colors"
                         />
                       </div>
@@ -398,9 +419,9 @@ export default function ContactPage() {
               <h3 className="font-bold text-foreground mb-4 text-sm uppercase tracking-widest text-primary">Quick Support</h3>
               <div className="space-y-3">
                 {[
-                  { label: 'General Enquiries', value: 'hello@faveco.ng', href: 'mailto:hello@faveco.ng', icon: Mail },
-                  { label: 'Sales & Quotes', value: '+234 801 234 5678', href: 'tel:+2348012345678', icon: Phone },
-                  { label: 'After-Sales Support', value: 'support@faveco.ng', href: 'mailto:support@faveco.ng', icon: MessageSquare },
+                      { label: 'General Enquiries', value: 'request@favecopower.com', href: 'mailto:request@favecopower.com', icon: Mail },
+                  { label: 'Sales & Quotes', value: '+234 802 268 8291', href: 'https://wa.me/2348022688291', icon: Phone },
+                  { label: 'After-Sales Support', value: 'request@favecopower.com', href: 'mailto:request@favecopower.com', icon: MessageSquare },
                 ].map(({ label, value, href, icon: Icon }) => (
                   <a key={label} href={href} className="flex items-center gap-3 p-3 bg-white rounded-xl border border-border hover:border-primary/30 transition-all group">
                     <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -433,7 +454,7 @@ export default function ContactPage() {
           </div>
           <p className="text-center text-sm text-foreground/50 mt-8">
             Still have questions?{' '}
-            <a href="mailto:hello@faveco.ng" className="text-primary font-semibold hover:underline">
+            <a href="mailto:request@favecopower.com" className="text-primary font-semibold hover:underline">
               Email us directly
             </a>
           </p>

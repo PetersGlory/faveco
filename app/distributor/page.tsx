@@ -16,11 +16,20 @@ export default function DistributorPage() {
     experience: '',
     message: ''
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+
+    const message = `*New Distributor Application*\n\n*Company:* ${formData.company}\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Region:* ${formData.region}\n*Experience:* ${formData.experience}\n*Message:* ${formData.message || 'None'}`;
+
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Distributor Application: ${formData.company}`)}&body=${encodeURIComponent(`Company: ${formData.company}\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nRegion: ${formData.region}\nExperience: ${formData.experience}\nMessage: ${formData.message || 'None'}`)}`;
+
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
+
+    setSubmitted(true);
   };
 
   const products = [
@@ -135,6 +144,37 @@ export default function DistributorPage() {
           <h2 className="text-3xl font-bold text-foreground mb-4 text-center">Apply to Become a Distributor</h2>
           <p className="text-foreground/70 text-center mb-12">Fill out the form below and our partnership team will contact you within 48 hours.</p>
           
+          {submitted ? (
+            <div className="bg-white border border-border rounded-lg p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-5">
+                <span className="text-primary font-bold text-2xl">✓</span>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-2">Application Submitted!</h3>
+              <p className="text-foreground/60 mb-4 leading-relaxed max-w-sm mx-auto">
+                Thank you, <strong>{formData.name}</strong>. Your distributor application has been sent to our partnership team via WhatsApp.
+              </p>
+              <p className="text-xs text-foreground/50 mb-6">
+                Or email us at{' '}
+                <a href="mailto:request@favecopower.com" className="text-primary font-semibold hover:underline">request@favecopower.com</a>
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button
+                  variant="default"
+                  className="bg-primary hover:bg-primary/90 text-white font-semibold"
+                  onClick={() => window.open('https://wa.me/2348022688291', '_blank')}
+                >
+                  Chat on WhatsApp
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-2 border-primary text-primary hover:bg-primary/5 font-semibold"
+                  onClick={() => { setSubmitted(false); setFormData({ company: '', name: '', email: '', phone: '', region: '', experience: '', message: '' }); }}
+                >
+                  Submit Another
+                </Button>
+              </div>
+            </div>
+          ) : (
           <form onSubmit={handleSubmit} className="bg-white border border-border rounded-lg p-8 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -242,6 +282,7 @@ export default function DistributorPage() {
               We'll review your application and contact you within 48 hours to discuss partnership opportunities.
             </p>
           </form>
+          )}
         </div>
       </section>
 

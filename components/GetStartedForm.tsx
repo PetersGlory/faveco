@@ -120,8 +120,16 @@ export default function GetStartedForm() {
 
   const handleSubmit = () => {
     if (currentStep === 3 && !validateStep3()) return;
+
+    const message = `*New Get Started Request*\n\n*Name:* ${formData.firstName} ${formData.lastName}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Property Type:* ${formData.propertyType}\n*Roof Type:* ${formData.roofType}\n*Roof Age:* ${formData.roofAge}\n*Property Size:* ${formData.squareFootage} sq ft\n*Monthly Bill:* $${formData.monthlyBill}\n*Goals:* ${formData.sustainabilityGoals.join(', ')}\n*Preferred Contact:* ${formData.preferredContactMethod}`;
+
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Get Started: Solar Enquiry')}&body=${encodeURIComponent(`Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProperty Type: ${formData.propertyType}\nRoof Type: ${formData.roofType}\nRoof Age: ${formData.roofAge}\nProperty Size: ${formData.squareFootage} sq ft\nMonthly Bill: $${formData.monthlyBill}\nGoals: ${formData.sustainabilityGoals.join(', ')}\nPreferred Contact: ${formData.preferredContactMethod}`)}`;
+
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
+
     setSubmitted(true);
-    console.log('Form submitted:', formData);
   };
 
   if (submitted) {
@@ -133,36 +141,28 @@ export default function GetStartedForm() {
               <Check className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">Thank You!</h1>
-            <p className="text-lg text-foreground/70 mb-8">
-              We've received your information and will contact you soon to discuss your solar energy solution.
+            <p className="text-lg text-foreground/70 mb-6">
+              Your information has been sent to our team via WhatsApp. We'll contact you soon to discuss your solar energy solution.
             </p>
-            <div className="bg-card p-8 rounded-lg border border-border mb-8">
-              <h2 className="text-xl font-bold text-foreground mb-4">What's Next?</h2>
-              <ul className="space-y-3 text-left max-w-md mx-auto">
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">1</span>
-                  <span className="text-foreground/70">Our team will review your information</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">2</span>
-                  <span className="text-foreground/70">We'll contact you within 24 hours</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">3</span>
-                  <span className="text-foreground/70">Schedule a free consultation</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">4</span>
-                  <span className="text-foreground/70">Get a custom solar solution quote</span>
-                </li>
-              </ul>
+            <p className="text-sm text-foreground/50 mb-6">
+              Alternatively, email us at{' '}
+              <a href="mailto:request@favecopower.com" className="text-primary font-semibold hover:underline">request@favecopower.com</a>
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+              <Button
+                onClick={() => window.open('https://wa.me/2348022688291', '_blank')}
+                className="bg-primary hover:bg-primary/90 text-white"
+              >
+                Chat on WhatsApp
+              </Button>
+              <Button
+                onClick={() => (window.location.href = '/')}
+                variant="outline"
+                className="border-2 border-primary text-primary hover:bg-primary/5"
+              >
+                Back to Home
+              </Button>
             </div>
-            <Button
-              onClick={() => (window.location.href = '/')}
-              className="bg-primary hover:bg-primary/90 text-white"
-            >
-              Back to Home
-            </Button>
           </div>
         </div>
       </div>
@@ -281,7 +281,7 @@ export default function GetStartedForm() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="0802 268 8291"
                   className={errors.phone ? 'border-red-500' : ''}
                 />
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}

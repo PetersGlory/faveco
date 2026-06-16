@@ -1,6 +1,7 @@
 'use client';
 
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, Phone, MapPin, Twitter, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
@@ -9,6 +10,12 @@ export default function Footer() {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim()) return;
+    const message = `*Newsletter Subscription*\n\n*Email:* ${email}`;
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
+    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Newsletter Subscription')}&body=${encodeURIComponent(`Email: ${email}`)}`;
+    window.open(whatsappUrl, '_blank');
+    window.open(mailtoUrl, '_blank');
     setEmail('');
   };
 
@@ -20,11 +27,16 @@ export default function Footer() {
     'Legal':     ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Compliance'],
   };
 
+  const TikTokIcon = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.88 2.89 2.89 0 0 1-2.88-2.88 2.89 2.89 0 0 1 2.88-2.88c.36 0 .69.07 1 .19V8.75a6.34 6.34 0 0 0-1-.08 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34v-7a8.27 8.27 0 0 0 4.77 1.49v-3.4z" />
+    </svg>
+  );
+
   const socialLinks = [
-    { icon: Facebook,  url: '#', label: 'Facebook' },
-    { icon: Twitter,   url: '#', label: 'Twitter' },
-    { icon: Linkedin,  url: '#', label: 'LinkedIn' },
-    { icon: Instagram, url: '#', label: 'Instagram' },
+    { icon: Twitter,   url: 'https://x.com/FavEcoPower/', label: 'X (Twitter)' },
+    { icon: TikTokIcon, url: 'https://www.tiktok.com/@favecopowerbanks', label: 'TikTok' },
+    { icon: Instagram, url: 'https://www.instagram.com/favecopower/', label: 'Instagram' },
   ];
 
   return (
@@ -36,10 +48,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">☀️</span>
-              </div>
-              <span className="font-bold text-lg">FavEco</span>
+              <Image
+                src="/favlogo.jpg"
+                alt="FavEco"
+                width={120}
+                height={38}
+                className="h-9 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-white/50 text-sm mb-6 leading-relaxed">
               Reliable solar solutions for homes and businesses. Empowering Africa's energy future with clean, affordable solar power.
@@ -100,18 +115,21 @@ export default function Footer() {
         {/* Contact */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y border-white/8">
           {[
-            { Icon: Phone,  label: 'Support Hotline',  value: '+234 (0) 700 SOLAR 1' },
-            { Icon: Mail,   label: 'Email Us',          value: 'info@faveco.com' },
-            { Icon: MapPin, label: 'Office Location',   value: '12 Osho Street, Lagos, Nigeria' },
-          ].map(({ Icon, label, value }) => (
-            <div key={label} className="flex gap-3 items-start">
-              <Icon className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-xs text-white/45 mb-0.5">{label}</p>
-                <p className="text-white text-sm font-medium">{value}</p>
+            { Icon: Phone,  label: 'Call / WhatsApp',  value: '+234 802 268 8291', href: 'https://wa.me/2348022688291' },
+            { Icon: Mail,   label: 'Email Us',          value: 'request@favecopower.com', href: 'mailto:request@favecopower.com' },
+            { Icon: MapPin, label: 'Office Location',   value: 'Lagos, Nigeria' },
+          ].map(({ Icon, label, value, href }) => {
+            const content = (
+              <div className="flex gap-3 items-start">
+                <Icon className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs text-white/45 mb-0.5">{label}</p>
+                  <p className="text-white text-sm font-medium">{value}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+            return href ? <a key={label} href={href} className="hover:opacity-80 transition-opacity">{content}</a> : <div key={label}>{content}</div>;
+          })}
         </div>
 
         {/* Bottom */}
@@ -120,9 +138,7 @@ export default function Footer() {
             © 2026 FavEco. All rights reserved. Powering Africa's energy future.
           </p>
           <div className="flex items-center gap-1 text-xs text-white/30">
-            <span>Powered by clean</span>
-            <span className="text-primary">☀️</span>
-            <span>energy</span>
+            <span>Powered by clean solar energy</span>
           </div>
         </div>
       </div>

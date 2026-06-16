@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 
@@ -29,12 +30,14 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-4 flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-base">☀️</span>
-          </div>
-          <span className={`font-bold text-lg hidden sm:inline transition-colors ${isScrolled ? 'text-foreground' : 'text-foreground'}`}>
-            FavEco
-          </span>
+          <Image
+            src="/favlogo.jpg"
+            alt="FavEco"
+            width={100}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
         </a>
 
         {/* Desktop Nav */}
