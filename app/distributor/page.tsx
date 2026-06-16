@@ -6,6 +6,7 @@ import Navigation from '@/components/sections/Navigation';
 import Footer from '@/components/sections/Footer';
 import { ArrowRight, CheckCircle, Zap, TrendingUp, Award, Users } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function DistributorPage() {
   const [formData, setFormData] = useState({
