@@ -34,9 +34,9 @@ export default function Navigation() {
           <Image
             src="/favlogo.jpg"
             alt="FavEco"
-            width={100}
-            height={32}
-            className="h-8 w-auto"
+            width={140}
+            height={44}
+            className="h-11 w-auto"
             priority
           />
         </a>
