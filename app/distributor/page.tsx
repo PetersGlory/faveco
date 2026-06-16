@@ -33,7 +33,7 @@ export default function DistributorPage() {
     setSubmitted(true);
   };
 
-  const products = [
+  const tiers = [
     {
       name: 'Platinum',
       description: 'For established large distributors',
