@@ -32,7 +32,7 @@ export default function Navigation() {
         {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
           <Image
-            src="/favlogo.jpg"
+            src="/favlogo.png"
             alt="FavEco"
             width={140}
             height={44}

@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favlogo.jpg',
+        url: '/favlogo.png',
         type: 'image/jpeg',
       },
     ],
-    apple: '/favlogo.jpg',
+    apple: '/favlogo.png',
   },
 }
 

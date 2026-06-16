@@ -49,7 +49,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
               <Image
-                src="/favlogo.jpg"
+                src="/favlogo.png"
                 alt="FavEco"
                 width={120}
                 height={38}
