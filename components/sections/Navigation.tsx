@@ -16,11 +16,12 @@ export default function Navigation() {
   }, []);
 
   const navLinks = [
-    { label: 'Residential', href: '/residential' },
-    { label: 'Commercial', href: '/commercial' },
-    { label: 'Become a Distributor', href: '/distributor' },
-    // { label: 'Payment Plans', href: '/payment-plans' },
-    { label: 'Shop', href: '/shop' },
+    { label: 'Products', href: '/products' },
+    { label: 'Distributor Program', href: '/distributor' },
+    { label: 'Reseller Program', href: '/reseller' },
+    { label: 'Installer Network', href: '/installer' },
+    { label: 'Calculator', href: '/calculator' },
+    { label: 'Trust & Testimonials', href: '/trust' },
   ];
 
   return (

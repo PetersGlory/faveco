@@ -1,10 +1,10 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Navigation from '@/components/sections/Navigation';
 import Footer from '@/components/sections/Footer';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, MapPin, TrendingUp, Users, Award } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, CheckCircle, Zap, TrendingUp, Award, Users } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DistributorPage() {
   const [formData, setFormData] = useState({
@@ -34,107 +34,227 @@ export default function DistributorPage() {
 
   const products = [
     {
-      name: 'AGEN',
-      power: '5kW',
-      wholesale: '₦2,800,000',
-      margin: '20%',
-      description: 'Entry-level residential system'
+      name: 'Platinum',
+      description: 'For established large distributors',
+      margin: '18-22%',
+      minOrder: '₦15M',
+      benefits: [
+        'Margin: 18-22% on bulk orders',
+        'Exclusive regional territory',
+        'Comprehensive marketing support',
+        'Priority customer support',
+        'Dedicated B2B portal access',
+        'Monthly performance bonuses',
+        'Partner conference invitations',
+        'Co-investment opportunities',
+      ],
+      recommended: true,
     },
     {
-      name: 'Opulence',
-      power: '10kW',
-      wholesale: '₦7,200,000',
-      margin: '20%',
-      description: 'Mid-range residential system'
+      name: 'Diamond',
+      description: 'For premium wholesale partners',
+      margin: '20-25%',
+      minOrder: '₦30M+',
+      benefits: [
+        'Margin: 20-25% on bulk orders',
+        'Exclusive national distribution',
+        'Custom marketing campaigns',
+        'VIP customer support (24/7)',
+        'Advanced analytics dashboard',
+        'Quarterly business reviews',
+        'Strategic partnership planning',
+        'Revenue sharing opportunities',
+      ],
+      recommended: false,
     },
-    {
-      name: 'Inaeko',
-      power: '25kW',
-      wholesale: '₦20,000,000',
-      margin: '20%',
-      description: 'Commercial-grade system'
-    },
-    {
-      name: 'Elegance',
-      power: '15kW',
-      wholesale: '₦10,400,000',
-      margin: '20%',
-      description: 'Premium residential system'
-    }
   ];
 
-  const benefits = [
-    { icon: TrendingUp, title: 'Attractive Margins', desc: 'Competitive wholesale pricing' },
-    { icon: Users, title: 'Dedicated Support', desc: 'Sales and technical team backing' },
-    { icon: Award, title: 'Training Programs', desc: 'Full certification and training' },
-    { icon: MapPin, title: 'Territory Rights', desc: 'Exclusive regional opportunities' }
+  const requirements = [
+    {
+      icon: Award,
+      title: 'Business Registration',
+      description: 'Valid business license and tax ID',
+    },
+    {
+      icon: Users,
+      title: 'Sales Team',
+      description: 'Dedicated solar sales professionals',
+    },
+    {
+      icon: Zap,
+      title: 'Technical Support',
+      description: 'Qualified installation or support staff',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Market Presence',
+      description: 'Established customer base or territory',
+    },
   ];
 
   return (
     <main className="overflow-hidden">
       <Navigation />
-      
-      {/* Hero */}
-      <section className="pt-32 pb-16 lg:pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-primary/10 to-transparent">
-        <div className="max-w-7xl mx-auto">
-          <a href="/" className="inline-flex items-center gap-2 mb-6 text-primary hover:text-primary/80 transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </a>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
-            Become a FavEco Distributor
-          </h1>
-          <p className="text-lg text-foreground/70 max-w-2xl mb-8 text-balance">
-            Partner with Africa's leading solar energy provider. Grow your business while bringing clean energy to your community.
-          </p>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 lg:pb-24 px-6 sm:px-10 lg:px-16 bg-gradient-to-b from-primary/10 to-transparent">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
+            <div className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+              <span className="text-sm font-bold text-primary">Distributor Program</span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] text-balance">
+              Become a FavEco
+              <span className="block text-primary">Master Distributor</span>
+            </h1>
+            <p className="text-xl text-foreground/70 leading-relaxed max-w-3xl">
+              Join Africa&apos;s fastest-growing solar platform. Get wholesale rates, exclusive territories, and comprehensive support to build a thriving distribution business.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <a
+                href="#tiers"
+                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all group shadow-lg"
+              >
+                View Partnership Tiers
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary hover:bg-primary/5 font-semibold px-8 py-4 rounded-lg transition-all"
+              >
+                Apply Now
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30">
+      {/* Why Partner Section */}
+      <section className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Why Partner with FavEco?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, i) => {
-              const Icon = benefit.icon;
-              return (
-                <div key={i} className="bg-white p-6 rounded-lg border border-border hover:border-primary/50 transition-all">
-                  <Icon className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="font-bold text-foreground mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-foreground/70">{benefit.desc}</p>
-                </div>
-              );
-            })}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-16"
+          >
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Why Partner With FavEco</h2>
+              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+                Access industry-leading margins, exclusive support, and unlimited growth potential
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { title: '15-25%', subtitle: 'Wholesale Margins', desc: 'Industry-leading margins on bulk orders' },
+                { title: 'Exclusive', subtitle: 'Territory Rights', desc: 'Protected regional distribution areas' },
+                { title: '24/7', subtitle: 'Support', desc: 'Dedicated account managers & tech support' },
+                { title: '100%', subtitle: 'Marketing Support', desc: 'Co-branded materials & campaigns' },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="text-center p-8 rounded-xl bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/10 hover:border-primary/30 transition-colors"
+                >
+                  <p className="text-3xl font-bold text-primary mb-1">{item.title}</p>
+                  <p className="text-sm font-semibold text-foreground mb-3">{item.subtitle}</p>
+                  <p className="text-sm text-foreground/60">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Product Portfolio */}
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+      {/* Partnership Tiers */}
+      <section id="tiers" className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-background">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Product Portfolio</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product, i) => (
-              <div key={i} className="bg-muted/30 border border-border rounded-lg p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2">{product.name}</h3>
-                <p className="text-sm text-foreground/70 mb-4">{product.description}</p>
-                <div className="space-y-2 mb-4">
-                  <div>
-                    <p className="text-xs text-foreground/60">Power Output</p>
-                    <p className="font-bold text-foreground">{product.power}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-16"
+          >
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Partnership Tiers</h2>
+              <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+                Choose the tier that matches your business scale and growth ambitions
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {tiers.map((tier, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col ${
+                    tier.recommended
+                      ? 'border-primary shadow-2xl ring-2 ring-primary/20 md:scale-105'
+                      : 'border-border hover:border-primary/40 hover:shadow-lg'
+                  }`}
+                >
+                  {/* Recommended Badge */}
+                  {tier.recommended && (
+                    <div className="bg-primary text-white py-2 text-center text-sm font-bold">
+                      Most Popular
+                    </div>
+                  )}
+
+                  {/* Content */}
+                  <div className="p-8 flex flex-col flex-grow">
+                    <h3 className="text-3xl font-bold text-foreground mb-2">{tier.name}</h3>
+                    <p className="text-sm text-foreground/60 mb-6">{tier.description}</p>
+
+                    <div className="mb-6 space-y-3 py-6 border-y border-border">
+                      <div>
+                        <p className="text-xs text-foreground/60 mb-1">Margin</p>
+                        <p className="text-2xl font-bold text-primary">{tier.margin}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-foreground/60 mb-1">Minimum Order</p>
+                        <p className="text-lg font-bold text-foreground">{tier.minOrder}</p>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-3 flex-grow mb-8">
+                      {tier.benefits.map((benefit, j) => (
+                        <li key={j} className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-foreground/70">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <a
+                      href="/contact"
+                      className={`inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg transition-all ${
+                        tier.recommended
+                          ? 'bg-primary hover:bg-primary/90 text-white shadow-lg'
+                          : 'border-2 border-primary text-primary hover:bg-primary/5'
+                      }`}
+                    >
+                      Apply for {tier.name}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
                   </div>
-                  <div>
-                    <p className="text-xs text-foreground/60">Wholesale Price</p>
-                    <p className="font-bold text-primary">{product.wholesale}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-foreground/60">Distributor Margin</p>
-                    <p className="font-bold text-primary">{product.margin}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -201,66 +321,24 @@ export default function DistributorPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">Email *</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">Phone *</label>
-                <input
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="+234..."
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">Region of Interest *</label>
-                <select
-                  required
-                  value={formData.region}
-                  onChange={(e) => setFormData({...formData, region: e.target.value})}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  <option value="">Select region</option>
-                  <option value="southwest">Southwest Nigeria</option>
-                  <option value="southeast">Southeast Nigeria</option>
-                  <option value="northcentral">North-Central Nigeria</option>
-                  <option value="northeast">Northeast Nigeria</option>
-                  <option value="northwest">Northwest Nigeria</option>
-                  <option value="ghana">Ghana</option>
-                  <option value="kenya">Kenya</option>
-                  <option value="other">Other (Specify in message)</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">Years in Energy Business *</label>
-                <select
-                  required
-                  value={formData.experience}
-                  onChange={(e) => setFormData({...formData, experience: e.target.value})}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  <option value="">Select experience</option>
-                  <option value="0-2">0-2 years</option>
-                  <option value="2-5">2-5 years</option>
-                  <option value="5-10">5-10 years</option>
-                  <option value="10plus">10+ years</option>
-                </select>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {requirements.map((req, i) => {
+                const Icon = req.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="p-6 rounded-xl bg-primary/5 border border-primary/10 hover:border-primary/30 transition-colors text-center"
+                  >
+                    <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <h3 className="text-lg font-bold text-foreground mb-2">{req.title}</h3>
+                    <p className="text-sm text-foreground/60">{req.description}</p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <div>
@@ -286,14 +364,28 @@ export default function DistributorPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-primary/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-4">Questions About Distribution?</h2>
-          <p className="text-lg text-foreground/70 mb-8">Contact our partnership team for more information.</p>
-          <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/5">
-            Contact Us
-          </Button>
+      {/* Application CTA */}
+      <section className="py-20 lg:py-28 px-6 sm:px-10 lg:px-16 bg-gradient-to-r from-primary/10 to-accent/10">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground">Ready to Scale Your Business?</h2>
+            <p className="text-lg text-foreground/70 leading-relaxed">
+              Apply for the FavEco Distributor Program and join our partner network across Africa.
+            </p>
+          </motion.div>
+
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all shadow-lg group"
+          >
+            Submit Application
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
       </section>
 

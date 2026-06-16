@@ -1,90 +1,161 @@
 'use client';
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight } from 'lucide-react';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Zap, Leaf, TrendingUp } from 'lucide-react';
 
 export default function Hero() {
-  const plugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-  const heroImages = [
-    { src: '/panel-hero.jpg', alt: 'Solar panels on residential roof' },
-    { src: '/hero-solar-2.jpg', alt: 'Commercial solar installation' },
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  const floatingVariants = {
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const stats = [
+    { icon: Zap, label: '100+ MW', value: 'Installed Capacity' },
+    { icon: Leaf, label: '500K+', value: 'Happy Customers' },
+    { icon: TrendingUp, label: '25 yr', value: 'Warranty Coverage' },
   ];
 
   return (
-    <section className="relative pt-20 overflow-hidden">
-      <div className="relative h-[520px] sm:h-[680px] lg:h-screen max-h-[900px]">
-        <Carousel
-          plugins={[plugin.current]}
-          className="w-full h-full"
-          onMouseEnter={() => plugin.current.stop()}
-          onMouseLeave={() => plugin.current.play()}
+    <section className="relative min-h-screen pt-32 pb-20 bg-background overflow-hidden">
+      {/* Animated background gradient circles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-0 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.4, 0.3]
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute -bottom-20 -left-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1.1, 1, 1.1],
+            opacity: [0.4, 0.3, 0.4]
+          }}
+          transition={{ duration: 8, repeat: Infinity, delay: 1 }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid lg:grid-cols-2 gap-12 items-center"
         >
-          <CarouselContent className="h-full">
-            {heroImages.map((image, index) => (
-              <CarouselItem key={index} className="h-full">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="inset-0 w-full h-full object-cover object-[50%_35%]"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-6 bg-white/10 hover:bg-white/20 border border-white/20 text-white" />
-          <CarouselNext className="right-6 bg-white/10 hover:bg-white/20 border border-white/20 text-white" />
-        </Carousel>
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/55 pointer-events-none" />
-
-        {/* Content — bottom-left aligned like Arnergy */}
-        <div className="absolute inset-0 flex items-end">
-          <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pb-16 sm:pb-20 lg:pb-28">
-            <p className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
-              Africa's Clean Energy Leader
-            </p>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-4 max-w-3xl">
-              24/7 Reliable Solar Power
-            </h1>
-            <p className="text-white/70 text-lg sm:text-xl mb-8 max-w-lg leading-relaxed">
-              Reliable systems, lower bills, and long-term value for homes and businesses.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="/shop"
-                className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-7 py-3.5 rounded-lg transition-all group"
+          {/* Left Content */}
+          <div className="space-y-8">
+            <motion.div variants={itemVariants} className="space-y-4">
+              <motion.div
+                className="inline-block"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
               >
-                Shop Now
+                <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                  Clean Energy for Africa
+                </span>
+              </motion.div>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] text-balance">
+                Premium Solar
+                <span className="block text-primary">Solutions</span>
+              </h1>
+              <p className="text-lg text-foreground/70 leading-relaxed max-w-lg text-pretty">
+                Enterprise-grade solar systems designed for African homes and businesses. Reliable, efficient, and built to last.
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 pt-4"
+            >
+              <a
+                href="/products"
+                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all group shadow-lg hover:shadow-xl"
+              >
+                Explore Products
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-medium px-7 py-3.5 rounded-lg backdrop-blur-sm transition-all"
+                href="/calculator"
+                className="inline-flex items-center justify-center gap-2 bg-card hover:bg-muted text-foreground font-semibold px-8 py-4 rounded-lg border border-border transition-all"
               >
-                Contact Us
+                Calculate Savings
               </a>
-            </div>
+            </motion.div>
 
-            {/* Trust indicators */}
-            <div className="mt-10 flex flex-wrap gap-6 text-white/55 text-sm">
-              {['Expert Installation', '25-Year Warranty', 'Flexible Payment Plans'].map((item) => (
-                <span key={item} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  {item}
+            {/* Trust Indicators */}
+            <motion.div
+              variants={itemVariants}
+              className="flex gap-6 pt-4 flex-wrap"
+            >
+              {[
+                { icon: '⚡', text: 'Expert Installation' },
+                { icon: '🛡️', text: '25-Year Warranty' },
+                { icon: '💰', text: 'Flexible Payments' },
+              ].map((item, i) => (
+                <span key={i} className="flex items-center gap-2 text-sm text-foreground/70 font-medium">
+                  <span>{item.icon}</span>
+                  {item.text}
                 </span>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </div>
+
+          {/* Right Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+            {stats.map((stat, idx) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  variants={floatingVariants}
+                  animate="animate"
+                  style={{ animationDelay: `${idx * 0.5}s` }}
+                  className="bg-white rounded-2xl p-6 shadow-sm border border-border hover:shadow-lg transition-shadow group"
+                >
+                  <motion.div
+                    className="mb-4 p-3 bg-primary/10 rounded-lg inline-block group-hover:bg-primary/20 transition-colors"
+                  >
+                    <Icon className="w-6 h-6 text-primary" />
+                  </motion.div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
+                    {stat.label}
+                  </h3>
+                  <p className="text-sm text-foreground/60">{stat.value}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
