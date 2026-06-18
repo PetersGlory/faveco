@@ -127,14 +127,23 @@ export default function BlogPage() {
   const [query, setQuery] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail.trim()) return;
     const message = `*Newsletter Subscription*\n\n*Email:* ${newsletterEmail}`;
+
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ _subject: 'Newsletter Subscription (Blog)', email: newsletterEmail }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
+
     const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Newsletter Subscription')}&body=${encodeURIComponent(`Email: ${newsletterEmail}`)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
     setNewsletterEmail('');
   };
 

@@ -20,16 +20,32 @@ export default function DistributorPage() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const message = `*New Distributor Application*\n\n*Company:* ${formData.company}\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Region:* ${formData.region}\n*Experience:* ${formData.experience}\n*Message:* ${formData.message || 'None'}`;
 
-    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Distributor Application: ${formData.company}`)}&body=${encodeURIComponent(`Company: ${formData.company}\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nRegion: ${formData.region}\nExperience: ${formData.experience}\nMessage: ${formData.message || 'None'}`)}`;
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Distributor Application',
+          company: formData.company,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          region: formData.region,
+          experience: formData.experience,
+          message: formData.message,
+        }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
 
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
 
     setSubmitted(true);
   };
@@ -273,7 +289,7 @@ export default function DistributorPage() {
               </div>
               <h3 className="text-xl font-bold text-foreground mb-2">Application Submitted!</h3>
               <p className="text-foreground/60 mb-4 leading-relaxed max-w-sm mx-auto">
-                Thank you, <strong>{formData.name}</strong>. Your distributor application has been sent to our partnership team via WhatsApp.
+                Thank you, <strong>{formData.name}</strong>. Your distributor application has been sent to our partnership team.
               </p>
               <p className="text-xs text-foreground/50 mb-6">
                 Or email us at{' '}

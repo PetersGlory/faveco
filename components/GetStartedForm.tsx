@@ -118,16 +118,36 @@ export default function GetStartedForm() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (currentStep === 3 && !validateStep3()) return;
 
     const message = `*New Get Started Request*\n\n*Name:* ${formData.firstName} ${formData.lastName}\n*Email:* ${formData.email}\n*Phone:* ${formData.phone}\n*Property Type:* ${formData.propertyType}\n*Roof Type:* ${formData.roofType}\n*Roof Age:* ${formData.roofAge}\n*Property Size:* ${formData.squareFootage} sq ft\n*Monthly Bill:* $${formData.monthlyBill}\n*Goals:* ${formData.sustainabilityGoals.join(', ')}\n*Preferred Contact:* ${formData.preferredContactMethod}`;
 
-    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Get Started: Solar Enquiry')}&body=${encodeURIComponent(`Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProperty Type: ${formData.propertyType}\nRoof Type: ${formData.roofType}\nRoof Age: ${formData.roofAge}\nProperty Size: ${formData.squareFootage} sq ft\nMonthly Bill: $${formData.monthlyBill}\nGoals: ${formData.sustainabilityGoals.join(', ')}\nPreferred Contact: ${formData.preferredContactMethod}`)}`;
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Get Started Enquiry',
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          propertyType: formData.propertyType,
+          roofType: formData.roofType,
+          roofAge: formData.roofAge,
+          squareFootage: formData.squareFootage,
+          monthlyBill: formData.monthlyBill,
+          goals: formData.sustainabilityGoals.join(', '),
+          preferredContact: formData.preferredContactMethod,
+        }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
 
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
 
     setSubmitted(true);
   };
@@ -142,7 +162,7 @@ export default function GetStartedForm() {
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">Thank You!</h1>
             <p className="text-lg text-foreground/70 mb-6">
-              Your information has been sent to our team via WhatsApp. We'll contact you soon to discuss your solar energy solution.
+              Your information has been sent to our team. We'll contact you soon to discuss your solar energy solution.
             </p>
             <p className="text-sm text-foreground/50 mb-6">
               Alternatively, email us at{' '}

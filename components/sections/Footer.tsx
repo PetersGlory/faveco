@@ -8,14 +8,23 @@ import { useState } from 'react';
 export default function Footer() {
   const [email, setEmail] = useState('');
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     const message = `*Newsletter Subscription*\n\n*Email:* ${email}`;
+
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ _subject: 'Newsletter Subscription (Footer)', email }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
+
     const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent('Newsletter Subscription')}&body=${encodeURIComponent(`Email: ${email}`)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
     setEmail('');
   };
 

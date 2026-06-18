@@ -335,12 +335,35 @@ export default function ShopPage() {
     const selectedProducts = products.filter(p => form.selectedProducts.includes(p.id)).map(p => p.name).join(', ');
     const message = `*New Product Request*\n\n*Name:* ${form.firstName} ${form.lastName}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Company:* ${form.company || 'N/A'}\n*Customer Type:* ${form.customerType}\n*State:* ${form.state}\n*Property Type:* ${form.propertyType}\n*Address:* ${form.address || 'N/A'}\n*Products:* ${selectedProducts}\n*Installation:* ${form.installationType}\n*Timeline:* ${form.timeline || 'Not specified'}\n*Monthly Bill:* ${form.monthlyBill || 'Not specified'}\n*Provider:* ${form.currentProvider || 'Not specified'}\n*Payment:* ${form.paymentPreference}\n*Heard From:* ${form.heardAbout || 'Not specified'}\n*Notes:* ${form.additionalInfo || 'None'}`;
 
-    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const productsList = products.filter(p => form.selectedProducts.includes(p.id)).map(p => `${p.name} (${p.power})`).join(', ');
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Product Request: ${form.firstName} ${form.lastName}`)}&body=${encodeURIComponent(`Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nCompany: ${form.company || 'N/A'}\nCustomer Type: ${form.customerType}\nState: ${form.state}\nProperty Type: ${form.propertyType}\nAddress: ${form.address || 'N/A'}\nProducts: ${productsList}\nInstallation: ${form.installationType}\nTimeline: ${form.timeline || 'Not specified'}\nMonthly Bill: ${form.monthlyBill || 'Not specified'}\nProvider: ${form.currentProvider || 'Not specified'}\nPayment: ${form.paymentPreference}\nHeard From: ${form.heardAbout || 'Not specified'}\nNotes: ${form.additionalInfo || 'None'}`)}`;
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Product Request',
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          phone: form.phone,
+          company: form.company || 'N/A',
+          customerType: form.customerType,
+          state: form.state,
+          propertyType: form.propertyType,
+          address: form.address || 'N/A',
+          products: selectedProducts,
+          installationType: form.installationType,
+          timeline: form.timeline || 'Not specified',
+          monthlyBill: form.monthlyBill || 'Not specified',
+          paymentPreference: form.paymentPreference,
+          additionalInfo: form.additionalInfo || 'None',
+        }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
 
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
 
     setSubmitting(false);
     setSubmitted(true);
@@ -356,10 +379,10 @@ export default function ShopPage() {
             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-3">Request Received!</h1>
-            <p className="text-foreground/60 leading-relaxed mb-6">
-              Thank you, <strong>{form.firstName}</strong>. Your solar request has been sent to our team via WhatsApp. We'll get back to you within <strong>24–48 hours</strong>.
-            </p>
+              <h1 className="text-3xl font-bold text-foreground mb-3">Request Received!</h1>
+              <p className="text-foreground/60 leading-relaxed mb-6">
+                Thank you, <strong>{form.firstName}</strong>. Your solar request has been sent to our team. We'll get back to you within <strong>24–48 hours</strong>.
+              </p>
             <div className="bg-muted/40 rounded-xl border border-border p-4 text-left mb-6 space-y-2">
               <p className="text-xs font-semibold text-foreground/50 uppercase tracking-widest mb-3">Your Selected Products</p>
               {products.filter(p => form.selectedProducts.includes(p.id)).map(p => (

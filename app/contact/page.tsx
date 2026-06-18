@@ -126,11 +126,26 @@ export default function ContactPage() {
 
     const message = `*New Contact Form Submission*\n\n*Name:* ${form.name}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Company:* ${form.company || 'N/A'}\n*Subject:* ${form.subject}\n*Message:* ${form.message}`;
 
-    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
-    const mailtoUrl = `mailto:request@favecopower.com?subject=${encodeURIComponent(`Contact Form: ${form.subject}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nCompany: ${form.company || 'N/A'}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`)}`;
+    try {
+      await fetch('https://formspree.io/f/mpqeelyy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Contact Form',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company || 'N/A',
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+    } catch (_err) {
+      // Fallback to WhatsApp if Formspree fails
+    }
 
+    const whatsappUrl = `https://wa.me/2348022688291?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    window.open(mailtoUrl, '_blank');
 
     setSubmitted(true);
     setSubmitting(false);
@@ -218,7 +233,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2">Message Sent!</h3>
                   <p className="text-foreground/60 mb-4 leading-relaxed max-w-sm mx-auto">
-                    Thanks, <strong>{form.name.split(' ')[0]}</strong>. Your message has been sent to our team via WhatsApp.
+                    Thanks, <strong>{form.name.split(' ')[0]}</strong>. Your message has been sent to our team.
                   </p>
                   <p className="text-xs text-foreground/50 mb-6 leading-relaxed max-w-sm mx-auto">
                     Alternatively, email us at{' '}
